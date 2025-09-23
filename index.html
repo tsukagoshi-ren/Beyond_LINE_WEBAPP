@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 
 <head>
-    <meta charset="utf-8">
-    <title>個人情報入力フォーム</title>
-    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <meta charset="UTF-8">
+    <title>LINEミニアプリフォーム</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 </head>
 
 <body>
-    <form id="userForm">
+    <h1>個人情報入力フォーム</h1>
+    <form id="infoForm">
         <label>氏名: <input type="text" name="name" required></label><br>
         <label>メール: <input type="email" name="email" required></label><br>
         <button type="submit">送信</button>
@@ -21,11 +23,27 @@
             console.log("LINEユーザー名:", profile.displayName);
         }
 
-        document.getElementById('userForm').addEventListener('submit', async (e) => {
+        document.getElementById('infoForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const data = new FormData(e.target);
-            await fetch('/save', { method: 'POST', body: data });
-            alert('送信しました');
+
+            // GAS WebアプリのURL（塚越さんの既存URL）
+            const gasUrl = "https://script.google.com/macros/s/AKfycbzj0Y12PJ4qrNvDk7rJRgXIToq4THDgGwtuSHKUYeXlV2JiOTSvIXcj9ss-thLXHbcdNw/exec";
+
+            try {
+                const res = await fetch(gasUrl, {
+                    method: 'POST',
+                    body: data
+                });
+                if (res.ok) {
+                    alert('送信しました');
+                } else {
+                    alert('送信に失敗しました');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('エラーが発生しました');
+            }
         });
 
         main();
