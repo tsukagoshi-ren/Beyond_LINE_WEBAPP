@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>個人情報入力フォーム</title>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+
+<body>
+    <form id="userForm">
+        <label>氏名: <input type="text" name="name" required></label><br>
+        <label>メール: <input type="email" name="email" required></label><br>
+        <button type="submit">送信</button>
+    </form>
+
+    <script>
+        async function main() {
+            await liff.init({ liffId: "YOUR_LIFF_ID" });
+            const profile = await liff.getProfile();
+            console.log("LINEユーザー名:", profile.displayName);
+        }
+
+        document.getElementById('userForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = new FormData(e.target);
+            await fetch('/save', { method: 'POST', body: data });
+            alert('送信しました');
+        });
+
+        main();
+    </script>
+</body>
+
+</html>
