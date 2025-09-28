@@ -321,34 +321,34 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             // LIFF初期化
-            initializeLiff();
+            // initializeLiff();
 
             const form = document.getElementById('deliveryForm');
             form.addEventListener('submit', handleSubmit);
         });
 
-        async function initializeLiff() {
-            try {
-                await liff.init({ liffId: LIFF_ID });
+        // async function initializeLiff() {
+        //     try {
+        //         await liff.init({ liffId: LIFF_ID });
 
-                if (liff.isLoggedIn()) {
-                    // ログイン済みの場合、プロフィール情報を取得
-                    liffProfile = await liff.getProfile();
-                    console.log('LIFF Profile:', liffProfile);
+        //         if (liff.isLoggedIn()) {
+        //             // ログイン済みの場合、プロフィール情報を取得
+        //             liffProfile = await liff.getProfile();
+        //             console.log('LIFF Profile:', liffProfile);
 
-                    // 名前フィールドに自動入力（任意）
-                    if (liffProfile.displayName) {
-                        document.getElementById('name').value = liffProfile.displayName;
-                    }
-                } else {
-                    // 未ログインの場合、ログインを促す
-                    console.log('LIFF: Not logged in');
-                }
-            } catch (error) {
-                console.error('LIFF initialization error:', error);
-                showMessage('LINEミニアプリの初期化でエラーが発生しました', 'error');
-            }
-        }
+        //             // 名前フィールドに自動入力（任意）
+        //             if (liffProfile.displayName) {
+        //                 document.getElementById('name').value = liffProfile.displayName;
+        //             }
+        //         } else {
+        //             // 未ログインの場合、ログインを促す
+        //             console.log('LIFF: Not logged in');
+        //         }
+        //     } catch (error) {
+        //         console.error('LIFF initialization error:', error);
+        //         showMessage('LINEミニアプリの初期化でエラーが発生しました', 'error');
+        //     }
+        // }
 
         async function handleSubmit(event) {
             event.preventDefault();
